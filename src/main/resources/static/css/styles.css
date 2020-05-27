@@ -1,0 +1,60 @@
+* {
+    font-family: sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+a {
+    text-decoration: none;
+    color: orange;
+}
+header {
+    width: 100%;
+}
+header.main {
+    position: fixed;
+    height: 50px;
+    background-color: gray;
+    z-index: 10;
+}
+header.main nav {
+    position: absolute;
+    font-size: 20px;
+    bottom: 5px;
+    left: 5px;
+}
+header.profile {
+    position: relative;
+    top: 50px;
+    height: 300px;
+    background-color: orange;
+}
+h1 {
+    width: 720px;
+    margin: auto;
+    padding: 20px;
+}
+.content {
+    width: 720px;
+    height: 2000px;
+    margin: auto;
+    padding: 10px;
+    background-color: lightgray;
+}
+.largeProfile {
+    height: 210px;
+    width: 210px;
+    background-color: darkgray;
+    position: absolute;
+}
+img.large {
+    overflow: hidden;
+    margin: 200px 10px 10px 10px;
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 50px;
+}

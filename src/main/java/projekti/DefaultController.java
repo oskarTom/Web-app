@@ -9,7 +9,15 @@ public class DefaultController {
 
     @GetMapping("*")
     public String helloWorld(Model model) {
+        model.addAttribute("name","Mr. Dev");
         model.addAttribute("message", "World!");
         return "index";
     }
+
+    @GetMapping("/myProfile")
+    public String getProfile(Model model) {
+        model.addAttribute("name","Mr. Developer");
+        return "profile";
+    }
+
 }

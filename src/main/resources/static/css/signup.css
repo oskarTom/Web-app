@@ -1,0 +1,7 @@
+p {
+    display: inline;
+}
+.section {
+    display: block;
+    margin: 10px;
+}

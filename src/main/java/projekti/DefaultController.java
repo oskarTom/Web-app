@@ -20,4 +20,9 @@ public class DefaultController {
         return "profile";
     }
 
+    @GetMapping("/settings")
+    public String getSettings(Model model) {
+        return "settings";
+    }
+
 }

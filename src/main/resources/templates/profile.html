@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title th:text="${name}">YOUR PROFILE</title>
         <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+        <link href="../static/css/profile.css" th:href="@{/css/profile.css}" rel="stylesheet" />
     </head>
     <body>
         <div th:replace="fragments/layout :: header"></div>
@@ -11,7 +12,10 @@
             <a href="http://youtube.com">
                 <img class="large" alt="your profile picture"/>
             </a>
-            <h1 th:text="${name}">YOUR PROFILE</h1>
+            <div class="title">
+                <h1 th:text="${name}">YOUR PROFILE</h1>
+                <button th:href="@{/settings}">Edit</button>
+            </div>
         </header>
 
         <div class="content">

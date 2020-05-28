@@ -7,5 +7,14 @@
     </head>
     <body>
         <div th:replace="fragments/layout :: header"></div>
+        <div class="everything" >
+            <h1>Settings</h1>
+            <div class="content">
+                <form th:action="@{/settings/profilepicture}" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type="submit" value="Set"/>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

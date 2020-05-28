@@ -14,7 +14,7 @@
             </a>
             <div class="title">
                 <h1 th:text="${name}">YOUR PROFILE</h1>
-                <button th:href="@{/settings}">Edit</button>
+                <button th:action="@{/settings}" method="GET">Edit</button>
             </div>
         </header>
 

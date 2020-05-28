@@ -7,11 +7,12 @@
     </head>
     <body>
         <div th:replace="fragments/layout :: header"></div>
-        <h1 th:text="${'Hello ' + message}">Hello DEVELOPER</h1>
+        <div class="everything">
+            <h1 th:text="${'Hello ' + message}">Hello DEVELOPER</h1>
 
-        <div class="content">
-            There is nothing here...
+            <div class="content">
+                There is nothing here...
+            </div>
         </div>
-
     </body>
 </html>

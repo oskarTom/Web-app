@@ -22,12 +22,6 @@ header.main nav {
     bottom: 5px;
     left: 5px;
 }
-header.profile {
-    position: relative;
-    top: 50px;
-    height: 300px;
-    background-color: orange;
-}
 h1 {
     width: 720px;
     margin: auto;
@@ -48,13 +42,13 @@ h1 {
 }
 img.large {
     overflow: hidden;
-    margin: 200px 10px 10px 10px;
-    height: 200px;
-    width: 200px;
+    margin: 150px 10px 10px 10px;
+    height: 300px;
+    width: 300px;
     position: absolute;
     background-color: gray;
     color: white;
     text-align: center;
     font-size: 18px;
-    border-radius: 50px;
+    border-radius: 10px;
 }

@@ -9,7 +9,7 @@
             <header class="main">
                 <nav>
                     <a th:href="@{/}" href="../index.html">Main</a>
-                    <a th:href="@{/myProfile}" th:text="${name}" href="../profile.html">Your Profile</a>
+                    <a th:href="@{/user/{url}(url=${me.url})}" th:text="${me.name}" href="../profile.html">Your Profile</a>
                     <form th:action="@{/logout}" method="POST">
                         <input type="submit" value="Logout"/>
                     </form>

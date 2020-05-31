@@ -40,6 +40,6 @@ public class AccountController {
         System.out.println("***"+accountRepository.save(account)+"***");
         System.out.println("***"+account+"***");
 
-        return "redirect:/signup";
+        return "redirect:/";
     }
 }

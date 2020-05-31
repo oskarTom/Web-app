@@ -1,6 +1,8 @@
 package projekti;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,32 +20,38 @@ public class DefaultController {
     private AccountRepository accountRepository;
 
     @GetMapping("/")
-    public String helloWorld(Model model, Principal principal) {
-        String username = principal.getName();
-        Account myaccount = accountRepository.findByUsername(username);
-        if (myaccount == null) {
-            myaccount = new Account("developer", "password", "Mr. dev", "tom");
-        }
-        model.addAttribute("me",myaccount);
+    public String helloWorld(Model model) {
+        configureHeader(model);
         model.addAttribute("message", "World!");
         return "index";
     }
 
     @GetMapping("/user/{id}")
     public String getProfile(@PathVariable String id, Model model) {
+        configureHeader(model);
         Account account = accountRepository.findByUrl(id);
         if (account == null) {
             return "index";
         }
-        model.addAttribute("me",account);
         model.addAttribute("name", account.getName());
         return "profile";
     }
 
     @GetMapping("/settings")
     public String getSettings(Model model) {
-        model.addAttribute("name", "Mr. Developer");
+        configureHeader(model);
         return "settings";
     }
 
+    public void configureHeader(Model model){
+        Account myaccount;
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = auth.getName();
+            myaccount = accountRepository.findByUsername(username);
+        } catch (Exception e) {
+            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom");
+        }
+        model.addAttribute("me", myaccount);
+    }
 }

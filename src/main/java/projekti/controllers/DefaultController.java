@@ -12,14 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import projekti.Account;
 import projekti.AccountRepository;
+import projekti.Connection;
+import projekti.ConnectionRepository;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 public class DefaultController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private ConnectionRepository connectionRepository;
 
     @GetMapping("/")
     public String helloWorld(Model model) {
@@ -35,8 +41,25 @@ public class DefaultController {
         if (account == null) {
             return "index";
         }
-        model.addAttribute("name", account.getName());
+        model.addAttribute("user", account);
         return "profile";
+    }
+
+    @PostMapping("/user/{id}/add")
+    public String addToContacts(@PathVariable String id) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account myaccount = accountRepository.findByUsername(username);
+        Connection connection = connectionRepository.findByUser(myaccount);
+
+        if (connection == null) {
+            Account theiraccount = accountRepository.findByUrl(id);
+            Connection newConnect = new Connection(myaccount, theiraccount);
+            connectionRepository.save(newConnect);
+        }
+
+        return "redirect:/user/"+id;
     }
 
     @GetMapping("/settings")
@@ -52,7 +75,7 @@ public class DefaultController {
             String username = auth.getName();
             myaccount = accountRepository.findByUsername(username);
         } catch (Exception e) {
-            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom");
+            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom", new ArrayList<>());
         }
         model.addAttribute("me", myaccount);
     }

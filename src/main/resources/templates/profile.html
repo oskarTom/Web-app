@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8" />
-        <title th:text="${name}">YOUR PROFILE</title>
+        <title th:text="${user.name}">YOUR PROFILE</title>
         <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
         <link href="../static/css/profile.css" th:href="@{/css/profile.css}" rel="stylesheet" />
     </head>
@@ -13,9 +13,11 @@
                 <img class="large" alt="your profile picture"/>
             </a>
             <div class="title">
-                <h1 th:text="${name}">YOUR PROFILE</h1>
-                <button th:if="${name==me.name}" th:action="@{/settings}" method="GET">Edit</button>
-                <button th:if="${name!=me.name}">Add to contacts</button>
+                <h1 th:text="${user.name}">YOUR PROFILE</h1>
+                <button th:if="${user.name==me.name}" th:action="@{/settings}" method="GET">Edit</button>
+                <form th:if="${user.name!=me.name}" th:action="@{/user/{url}/add(url=${user.url})}" method="POST">
+                    <input type="submit" value="Add to contacts"/>
+                </form>
             </div>
         </header>
 

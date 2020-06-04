@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,4 +32,7 @@ public class Account extends AbstractPersistable<Long> {
     @NotEmpty
     @Size(min = 1, max = 30)
     private String url;
+
+    @OneToMany(mappedBy = "user")
+    private List<Connection> connections = new ArrayList<>();
 }

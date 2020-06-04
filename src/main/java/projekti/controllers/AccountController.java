@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projekti.Account;
 import projekti.AccountRepository;
 
+import java.util.ArrayList;
+
 @Controller
 public class AccountController {
 
@@ -35,7 +37,7 @@ public class AccountController {
 
         Account account = new Account(username,
                                       passwordEncoder.encode(password),
-                                      name, url);
+                                      name, url, new ArrayList<>());
 
         System.out.println("***"+accountRepository.save(account)+"***");
         System.out.println("***"+account+"***");

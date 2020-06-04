@@ -14,9 +14,10 @@
             </a>
             <div class="title">
                 <h1 th:text="${user.name}">YOUR PROFILE</h1>
-                <button th:if="${user.name==me.name}" th:action="@{/settings}" method="GET">Edit</button>
-                <form th:if="${user.name!=me.name}" th:action="@{/user/{url}/add(url=${user.url})}" method="POST">
-                    <input type="submit" value="Add to contacts"/>
+                <button th:if="${user==me}" th:action="@{/settings}" method="GET">Edit</button>
+                <form th:if="${user!=me}" th:action="@{/user/{url}/add(url=${user.url})}" method="POST">
+                    <input th:if="${!added}" type="submit" value="Add to contacts"/>
+                    <p th:if="${added}">Contact request pending...</p>
                 </form>
             </div>
         </header>

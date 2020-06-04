@@ -36,12 +36,19 @@ public class DefaultController {
 
     @GetMapping("/user/{id}")
     public String getProfile(@PathVariable String id, Model model) {
-        configureHeader(model);
-        Account account = accountRepository.findByUrl(id);
-        if (account == null) {
+        Account myaccount = configureHeader(model);
+        Account theiraccount = accountRepository.findByUrl(id);
+        if (theiraccount == null) {
             return "index";
         }
-        model.addAttribute("user", account);
+        model.addAttribute("user", theiraccount);
+        Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
+        if (connection == null) {
+            model.addAttribute("added", false);
+        } else {
+            model.addAttribute("added", true);
+        }
+
         return "profile";
     }
 
@@ -51,10 +58,10 @@ public class DefaultController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account myaccount = accountRepository.findByUsername(username);
-        Connection connection = connectionRepository.findByUser(myaccount);
+        Account theiraccount = accountRepository.findByUrl(id);
+        Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
 
         if (connection == null) {
-            Account theiraccount = accountRepository.findByUrl(id);
             Connection newConnect = new Connection(myaccount, theiraccount);
             connectionRepository.save(newConnect);
         }
@@ -68,7 +75,7 @@ public class DefaultController {
         return "settings";
     }
 
-    public void configureHeader(Model model){
+    public Account configureHeader(Model model){
         Account myaccount;
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -78,5 +85,6 @@ public class DefaultController {
             myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom", new ArrayList<>());
         }
         model.addAttribute("me", myaccount);
+        return myaccount;
     }
 }

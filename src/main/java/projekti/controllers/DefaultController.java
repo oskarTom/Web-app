@@ -44,9 +44,11 @@ public class DefaultController {
         model.addAttribute("user", theiraccount);
         Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
         if (connection == null) {
-            model.addAttribute("added", false);
+            model.addAttribute("added", 0);
+        } else if(connectionRepository.findByUserAndFriend(theiraccount, myaccount) == null){
+            model.addAttribute("added", 1);
         } else {
-            model.addAttribute("added", true);
+            model.addAttribute("added", 2);
         }
 
         return "profile";

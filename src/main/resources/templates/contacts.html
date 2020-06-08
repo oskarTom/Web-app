@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Contacts</title>
+        <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <!--<div th:replace="fragments/layout :: header"></div>-->
+        <h2>Requests</h2>
+        <ul>
+            <li  th:each="person: ${requests}">
+                <span th:text="${person.name}"></span>
+            </li>
+        </ul>
+        <h2>Contacts</h2>
+        <ul>
+            <li th:each="person: ${confirmed}">
+                <span th:text="${person.name}"></span>
+            </li>
+        </ul>
+    </body>
+</html>

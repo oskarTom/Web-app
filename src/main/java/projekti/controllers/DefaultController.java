@@ -14,6 +14,7 @@ import projekti.database.Connection;
 import projekti.database.ConnectionRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class DefaultController {
@@ -72,6 +73,30 @@ public class DefaultController {
     public String getSettings(Model model) {
         configureHeader(model);
         return "settings";
+    }
+
+    @GetMapping("/contacts")
+    public String getContacts(Model model) {
+        Account myaccount = configureHeader(model);
+
+        List<Connection> connections = connectionRepository.findByFriend(myaccount);
+        List<Account> requests = new ArrayList<>();
+        for (Connection connection : connections) {
+            requests.add(connection.getUser());
+        }
+
+        List<Account> confirmed = new ArrayList<>();
+        connections = connectionRepository.findByUser(myaccount);
+        for (Connection connection : connections) {
+            if (requests.contains(connection.getFriend())) {
+                confirmed.add(connection.getFriend());
+                requests.remove(connection.getFriend());
+            }
+        }
+
+        model.addAttribute("confirmed", confirmed);
+        model.addAttribute("requests", requests);
+        return "contacts";
     }
 
     public Account configureHeader(Model model){

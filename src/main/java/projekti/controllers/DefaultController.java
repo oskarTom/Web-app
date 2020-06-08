@@ -20,6 +20,9 @@ import java.util.List;
 public class DefaultController {
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
@@ -27,14 +30,14 @@ public class DefaultController {
 
     @GetMapping("/")
     public String helloWorld(Model model) {
-        configureHeader(model);
-        model.addAttribute("message", "World!");
+        Account myaccount = accountService.configureHeader(model);
+        model.addAttribute("message", myaccount.getName());
         return "index";
     }
 
     @GetMapping("/user/{id}")
     public String getProfile(@PathVariable String id, Model model) {
-        Account myaccount = configureHeader(model);
+        Account myaccount = accountService.configureHeader(model);
         Account theiraccount = accountRepository.findByUrl(id);
         if (theiraccount == null) {
             return "index";
@@ -71,13 +74,13 @@ public class DefaultController {
 
     @GetMapping("/settings")
     public String getSettings(Model model) {
-        configureHeader(model);
+        accountService.configureHeader(model);
         return "settings";
     }
 
     @GetMapping("/contacts")
     public String getContacts(Model model) {
-        Account myaccount = configureHeader(model);
+        Account myaccount = accountService.configureHeader(model);
 
         List<Connection> connections = connectionRepository.findByFriend(myaccount);
         List<Account> requests = new ArrayList<>();
@@ -97,18 +100,5 @@ public class DefaultController {
         model.addAttribute("confirmed", confirmed);
         model.addAttribute("requests", requests);
         return "contacts";
-    }
-
-    public Account configureHeader(Model model){
-        Account myaccount;
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            String username = auth.getName();
-            myaccount = accountRepository.findByUsername(username);
-        } catch (Exception e) {
-            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom", new ArrayList<>());
-        }
-        model.addAttribute("me", myaccount);
-        return myaccount;
     }
 }

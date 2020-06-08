@@ -10,9 +10,10 @@
         <h2>Requests</h2>
         <ul>
             <li  th:each="person: ${requests}">
-                <form th:action="@{/contacts/{url}/add(url=${person.url})}" method="POST">
+                <form th:action="@{/contacts/{url}/respond(url=${person.url})}" method="POST">
                     <span th:text="${person.name}"></span>
-                    <input type="submit" value="Accept">
+                    <input type="submit" name="action" value="Accept">
+                    <input type="submit" name="action" value="Decline">
                 </form>
             </li>
         </ul>

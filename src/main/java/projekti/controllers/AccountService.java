@@ -53,8 +53,8 @@ public class AccountService {
         Account myaccount = accountRepository.findByUsername(username);
         Account theiraccount = accountRepository.findByUrl(url);
         Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
-        connectionRepository.delete(connection);
+        if (connection != null) connectionRepository.delete(connection);
         connection = connectionRepository.findByUserAndFriend(theiraccount, myaccount);
-        connectionRepository.delete(connection);
+        if (connection != null) connectionRepository.delete(connection);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import projekti.database.Account;
 import projekti.database.AccountRepository;
 import projekti.database.Connection;
@@ -61,9 +62,17 @@ public class DefaultController {
         return "redirect:/user/"+id;
     }
 
-    @PostMapping("/contacts/{id}/add")
-    public String acceptRequest(@PathVariable String id) {
-        accountService.addToContacts(id);
+    @PostMapping("/contacts/{id}/respond")
+    public String acceptRequest(@PathVariable String id,
+                                @RequestParam(value = "action") String action) {
+        if (action.equals("Accept")) {
+            accountService.addToContacts(id);
+        }
+
+        if (action.equals("Decline")) {
+            accountService.removeFromContacts(id);
+        }
+
         return "redirect:/contacts";
     }
 

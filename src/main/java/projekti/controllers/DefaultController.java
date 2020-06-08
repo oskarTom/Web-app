@@ -57,19 +57,20 @@ public class DefaultController {
 
     @PostMapping("/user/{id}/add")
     public String addToContacts(@PathVariable String id) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        Account myaccount = accountRepository.findByUsername(username);
-        Account theiraccount = accountRepository.findByUrl(id);
-        Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
-
-        if (connection == null) {
-            Connection newConnect = new Connection(myaccount, theiraccount);
-            connectionRepository.save(newConnect);
-        }
-
+        accountService.addToContacts(id);
         return "redirect:/user/"+id;
+    }
+
+    @PostMapping("/contacts/{id}/add")
+    public String acceptRequest(@PathVariable String id) {
+        accountService.addToContacts(id);
+        return "redirect:/contacts";
+    }
+
+    @PostMapping("/contacts/{id}/delete")
+    public String deleteContact(@PathVariable String id) {
+        accountService.removeFromContacts(id);
+        return "redirect:/contacts";
     }
 
     @GetMapping("/settings")

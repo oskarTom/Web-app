@@ -10,13 +10,19 @@
         <h2>Requests</h2>
         <ul>
             <li  th:each="person: ${requests}">
-                <span th:text="${person.name}"></span>
+                <form th:action="@{/contacts/{url}/add(url=${person.url})}" method="POST">
+                    <span th:text="${person.name}"></span>
+                    <input type="submit" value="Accept">
+                </form>
             </li>
         </ul>
         <h2>Contacts</h2>
         <ul>
             <li th:each="person: ${confirmed}">
-                <span th:text="${person.name}"></span>
+                <form th:action="@{/contacts/{url}/delete(url=${person.url})}" method="POST">
+                    <span th:text="${person.name}"></span>
+                    <input type="submit" value="Delete">
+                </form>
             </li>
         </ul>
     </body>

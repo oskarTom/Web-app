@@ -28,7 +28,9 @@ public class AccountService {
             String username = auth.getName();
             myaccount = accountRepository.findByUsername(username);
         } catch (Exception e) {
-            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom", new ArrayList<>());
+            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom",
+                    new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
+                    new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }
         model.addAttribute("me", myaccount);
         return myaccount;

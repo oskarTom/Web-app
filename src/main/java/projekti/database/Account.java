@@ -34,6 +34,12 @@ public class Account extends AbstractPersistable<Long> {
     private String url;
 
     @OneToMany(mappedBy = "user")
+    private List<Skill> skills = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Praise> praises = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
     private List<Connection> connections = new ArrayList<>();
 
     @OneToMany(mappedBy = "poster")
@@ -41,4 +47,7 @@ public class Account extends AbstractPersistable<Long> {
 
     @OneToMany(mappedBy = "poster")
     private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Like> likes = new ArrayList<>();
 }

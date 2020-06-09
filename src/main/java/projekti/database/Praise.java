@@ -7,16 +7,12 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import java.time.LocalDateTime;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
-public class Comment extends AbstractPersistable<Long> {
-
+@Data @AllArgsConstructor @NoArgsConstructor
+public class Praise extends AbstractPersistable<Long> {
     @ManyToOne
-    private Post post;
+    private Skill skill;
     @ManyToOne
-    private Account poster;
-    private String content;
-    private LocalDateTime time;
+    private Account user;
 }

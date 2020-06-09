@@ -10,7 +10,7 @@
         <div class="everything" >
             <h1>Settings</h1>
             <div class="content">
-                <form th:action="@{/settings/profilepicture}" method="POST" enctype="multipart/form-data">
+                <form th:action="@{/user/{url}/profilepicture(url=${person.url})}" method="POST" enctype="multipart/form-data">
                     <input type="file" name="file" />
                     <input type="submit" value="Set"/>
                 </form>

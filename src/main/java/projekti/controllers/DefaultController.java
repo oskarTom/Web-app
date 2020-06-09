@@ -56,6 +56,8 @@ public class DefaultController {
         return "profile";
     }
 
+
+
     @PostMapping("/user/{id}/add")
     public String addToContacts(@PathVariable String id) {
         accountService.addToContacts(id);

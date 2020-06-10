@@ -5,15 +5,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import projekti.database.Account;
 import projekti.database.AccountRepository;
 import projekti.database.Connection;
 import projekti.database.ConnectionRepository;
 
+import javax.tools.FileObject;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +53,27 @@ public class DefaultController {
             model.addAttribute("added", 2);
         }
 
+        if (theiraccount.getProfilePic()!=null) {
+
+        }
         return "profile";
     }
 
+    @PostMapping("/user/{id}/profilepicture")
+    public String updateProfile(@PathVariable String id,
+                                @RequestParam("file") MultipartFile file) throws IOException {
+        Account myaccount = accountService.getCurrentUser();
+        myaccount.setProfilePic(file.getBytes());
+        accountRepository.save(myaccount);
+        return "redirect:/user/" + id;
+    }
 
+    @GetMapping(path = "/user/{id}/profilepicture", produces = "image/png")
+    @ResponseBody
+    public byte[] getProfilePicture(){
+        Account myaccount = accountService.getCurrentUser();
+        return myaccount.getProfilePic();
+    }
 
     @PostMapping("/user/{id}/add")
     public String addToContacts(@PathVariable String id) {
@@ -86,7 +103,8 @@ public class DefaultController {
 
     @GetMapping("/settings")
     public String getSettings(Model model) {
-        accountService.configureHeader(model);
+        Account myaccount = accountService.configureHeader(model);
+        model.addAttribute("person", myaccount);
         return "settings";
     }
 

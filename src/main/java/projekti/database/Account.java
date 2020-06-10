@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -33,6 +32,9 @@ public class Account extends AbstractPersistable<Long> {
     @Size(min = 1, max = 30)
     private String url;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] profilePic;
 
     @OneToMany(mappedBy = "user")
     private List<Skill> skills = new ArrayList<>();

@@ -28,7 +28,7 @@ public class AccountService {
             String username = auth.getName();
             myaccount = accountRepository.findByUsername(username);
         } catch (Exception e) {
-            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom",
+            myaccount = new Account("developer", "password", "LOGIN_NOT_FOUND", "tom", null,
                     new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                     new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }

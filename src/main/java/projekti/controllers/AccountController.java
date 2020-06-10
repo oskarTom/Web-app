@@ -35,7 +35,7 @@ public class AccountController {
             return "redirect:/signup";
         }
 
-        Account account = new Account(username, passwordEncoder.encode(password), name, url,
+        Account account = new Account(username, passwordEncoder.encode(password), name, url, null,
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         accountRepository.save(account);

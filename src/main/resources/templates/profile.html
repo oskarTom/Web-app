@@ -9,9 +9,7 @@
     <body>
         <div th:replace="fragments/layout :: header"></div>
         <header class="profile">
-            <a href="http://youtube.com">
-                <img class="large" alt="your profile picture"/>
-            </a>
+            <img th:src="@{/user/{id}/profilepicture(id=user.url)}" class="large" alt="your profile picture"/>
             <div class="title">
                 <h1 th:text="${user.name}">YOUR PROFILE</h1>
                 <button th:if="${user==me}" th:action="@{/settings}" method="GET">Edit</button>

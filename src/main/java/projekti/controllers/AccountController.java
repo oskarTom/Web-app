@@ -38,6 +38,7 @@ public class AccountController {
         Account account = new Account(username, passwordEncoder.encode(password), name, url,
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
                 new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        accountRepository.save(account);
         return "redirect:/";
     }
 }

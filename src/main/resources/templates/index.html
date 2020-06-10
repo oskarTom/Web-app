@@ -11,6 +11,10 @@
             <h1 th:text="${'Hello ' + message}">Hello DEVELOPER</h1>
 
             <div class="content">
+                <form method="POST" th:action="@{/}">
+                    <input type="text" name="update"/>
+                    <input type="submit" name="submit">
+                </form>
                 There is nothing here...
             </div>
         </div>

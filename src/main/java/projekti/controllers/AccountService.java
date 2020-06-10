@@ -59,4 +59,10 @@ public class AccountService {
         connection = connectionRepository.findByUserAndFriend(theiraccount, myaccount);
         if (connection != null) connectionRepository.delete(connection);
     }
+
+    public Account getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return accountRepository.findByUsername(username);
+    }
 }

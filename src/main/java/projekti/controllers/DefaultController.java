@@ -1,16 +1,16 @@
 package projekti.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import projekti.database.Account;
-import projekti.database.AccountRepository;
-import projekti.database.Connection;
-import projekti.database.ConnectionRepository;
+import projekti.database.*;
 
 import javax.tools.FileObject;
 import java.io.IOException;
@@ -29,10 +29,34 @@ public class DefaultController {
     @Autowired
     private ConnectionRepository connectionRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping("/")
     public String helloWorld(Model model) {
         Account myaccount = accountService.configureHeader(model);
         model.addAttribute("message", myaccount.getName());
+
+        List<Account> posters = new ArrayList<>();
+        List<Connection> connections = connectionRepository.findByFriend(myaccount);
+        for (Connection connection : connections) {
+            posters.add(connection.getUser());
+        }
+        connections = connectionRepository.findByUser(myaccount);
+        for (Connection connection : connections) {
+            if (!posters.contains(connection.getFriend())) {
+                posters.remove(connection.getUser());
+            }
+        }
+        posters.add(myaccount);
+
+        List<Post> posts = new ArrayList<>();
+        Pageable pageable = PageRequest.of(0,25, Sort.by("time").ascending());
+
+        posts.addAll(postRepository.findByPosterIn(posters));
+
+        model.addAttribute("posts", posts);
+
         return "index";
     }
 

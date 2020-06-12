@@ -15,7 +15,11 @@
                     <input type="text" name="update"/>
                     <input type="submit" name="submit">
                 </form>
-                There is nothing here...
+                <ul>
+                    <li th:each="post: ${posts}">
+                        <span th:text="${post.content}">Hello</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </body>

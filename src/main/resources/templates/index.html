@@ -17,6 +17,7 @@
                 </form>
                 <ul>
                     <li th:each="post: ${posts}">
+                        <img th:src="@{/user/{id}/profilepicture(id=${post.poster.url})}" class="small" alt="">
                         <span th:text="${post.content}">Hello</span>
                     </li>
                 </ul>

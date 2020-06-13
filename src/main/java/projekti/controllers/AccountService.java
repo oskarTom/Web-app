@@ -44,6 +44,10 @@ public class AccountService {
         accountRepository.save(myaccount);
     }
 
+    public byte[] getProfilePic(String url){
+        return accountRepository.findByUrl(url).getProfilePic();
+    }
+
     public void addToContacts(String url){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();

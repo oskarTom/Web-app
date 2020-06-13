@@ -72,9 +72,8 @@ public class DefaultController {
 
     @GetMapping(path = "/user/{id}/profilepicture", produces = "image/png")
     @ResponseBody
-    public byte[] getProfilePicture(){
-        Account myaccount = accountService.getCurrentUser();
-        return myaccount.getProfilePic();
+    public byte[] getProfilePicture(@PathVariable String id){
+        return accountService.getProfilePic(id);
     }
 
     @PostMapping("/user/{id}/add")

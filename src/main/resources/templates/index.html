@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <title>Generic social media</title>
         <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
+        <link href="../static/css/frontpage.css" th:href="@{/css/frontpage.css}" rel="stylesheet" />
     </head>
     <body>
         <div th:replace="fragments/layout :: header"></div>
@@ -18,7 +19,9 @@
                 <ul>
                     <li th:each="post: ${posts}">
                         <img th:src="@{/user/{id}/profilepicture(id=${post.poster.url})}" class="small" alt="">
-                        <span th:text="${post.content}">Hello</span>
+                        <span th:text="${post.poster.name}">Name</span>
+                        <span th:text="${post.time}">Time</span>
+                        <div th:text="${post.content}" class="postcontent">Content</div>
                     </li>
                 </ul>
             </div>

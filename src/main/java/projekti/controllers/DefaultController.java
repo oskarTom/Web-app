@@ -39,15 +39,18 @@ public class DefaultController {
 
         List<Account> posters = new ArrayList<>();
         List<Connection> connections = connectionRepository.findByFriend(myaccount);
+        List<Account> requests = new ArrayList<>();
         for (Connection connection : connections) {
-            posters.add(connection.getUser());
+            requests.add(connection.getUser());
         }
+
         connections = connectionRepository.findByUser(myaccount);
         for (Connection connection : connections) {
-            if (!posters.contains(connection.getFriend())) {
-                posters.remove(connection.getUser());
+            if (requests.contains(connection.getFriend())) {
+                posters.add(connection.getFriend());
             }
         }
+
         posters.add(myaccount);
 
         List<Post> posts = new ArrayList<>();

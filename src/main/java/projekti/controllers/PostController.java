@@ -39,4 +39,13 @@ public class PostController {
         return "redirect:/";
     }
 
+    @PostMapping("/posts/{id}/unlike")
+    public String unLike(@PathVariable Long id) {
+        Account user = accountService.getCurrentUser();
+        Post post = postRepository.getOne(id);
+        LikePost like = likeRepository.findByPostAndUser(post, user);
+        likeRepository.delete(like);
+        return "redirect:/";
+    }
+
 }

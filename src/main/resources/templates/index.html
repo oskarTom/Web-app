@@ -9,7 +9,7 @@
     <body>
         <div th:replace="fragments/layout :: header"></div>
         <div class="everything">
-            <h1 th:text="${'Hello ' + me.name}">Hello DEVELOPER</h1>
+            <h1 th:text="${'Hello ' + me.name + '!'}">Hello DEVELOPER</h1>
 
             <div class="content">
                 <form method="POST" th:action="@{/}">

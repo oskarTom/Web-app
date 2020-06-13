@@ -49,6 +49,7 @@ img.large {
     margin: 150px 10px 10px 10px;
     height: 300px;
     width: 300px;
+    object-fit: cover;
     position: absolute;
     background-color: gray;
     color: white;
@@ -60,6 +61,7 @@ img.small {
     overflow: hidden;
     height: 75px;
     width: 75px;
+    object-fit: cover;
     background-color: gray;
     color: white;
     text-align: center;

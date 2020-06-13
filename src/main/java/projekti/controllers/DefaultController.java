@@ -24,10 +24,10 @@ public class DefaultController {
     private AccountService accountService;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private ConnectionService connectionService;
 
     @Autowired
-    private ConnectionRepository connectionRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
     private PostRepository postRepository;
@@ -37,20 +37,7 @@ public class DefaultController {
         Account myaccount = accountService.configureHeader(model);
         model.addAttribute("message", myaccount.getName());
 
-        List<Account> posters = new ArrayList<>();
-        List<Connection> connections = connectionRepository.findByFriend(myaccount);
-        List<Account> requests = new ArrayList<>();
-        for (Connection connection : connections) {
-            requests.add(connection.getUser());
-        }
-
-        connections = connectionRepository.findByUser(myaccount);
-        for (Connection connection : connections) {
-            if (requests.contains(connection.getFriend())) {
-                posters.add(connection.getFriend());
-            }
-        }
-
+        List<Account> posters = connectionService.getConfirmed(myaccount);
         posters.add(myaccount);
 
         List<Post> posts = new ArrayList<>();
@@ -71,14 +58,7 @@ public class DefaultController {
             return "index";
         }
         model.addAttribute("user", theiraccount);
-        Connection connection = connectionRepository.findByUserAndFriend(myaccount, theiraccount);
-        if (connection == null) {
-            model.addAttribute("added", 0);
-        } else if(connectionRepository.findByUserAndFriend(theiraccount, myaccount) == null){
-            model.addAttribute("added", 1);
-        } else {
-            model.addAttribute("added", 2);
-        }
+        model.addAttribute("added", connectionService.getConnectionStatus(myaccount, theiraccount));
 
         if (theiraccount.getProfilePic()!=null) {
 
@@ -138,24 +118,7 @@ public class DefaultController {
     @GetMapping("/contacts")
     public String getContacts(Model model) {
         Account myaccount = accountService.configureHeader(model);
-
-        List<Connection> connections = connectionRepository.findByFriend(myaccount);
-        List<Account> requests = new ArrayList<>();
-        for (Connection connection : connections) {
-            requests.add(connection.getUser());
-        }
-
-        List<Account> confirmed = new ArrayList<>();
-        connections = connectionRepository.findByUser(myaccount);
-        for (Connection connection : connections) {
-            if (requests.contains(connection.getFriend())) {
-                confirmed.add(connection.getFriend());
-                requests.remove(connection.getFriend());
-            }
-        }
-
-        model.addAttribute("confirmed", confirmed);
-        model.addAttribute("requests", requests);
+        connectionService.setConfirmedAndRequests(model, myaccount);
         return "contacts";
     }
 }

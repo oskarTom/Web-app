@@ -29,19 +29,28 @@ public class DefaultController {
     @Autowired
     private PostRepository postRepository;
 
+    @Autowired
+    private LikeRepository likeRepository;
+
     @GetMapping("/")
     public String helloWorld(Model model) {
         Account myaccount = accountService.configureHeader(model);
-        model.addAttribute("message", myaccount.getName());
+        model.addAttribute("me", myaccount);
 
         List<Account> posters = connectionService.getConfirmed(myaccount);
         posters.add(myaccount);
 
         List<Post> posts = new ArrayList<>();
+        posts.addAll(postRepository.findByPosterIn(posters));
         Pageable pageable = PageRequest.of(0,25, Sort.by("time").ascending());
 
-        posts.addAll(postRepository.findByPosterIn(posters));
-
+        List<Post> liked = new ArrayList<>();
+        for (Post post : posts) {
+            if (likeRepository.findByPostAndUser(post, myaccount) != null) {
+                liked.add(post);
+            }
+        }
+        model.addAttribute("liked", liked);
         model.addAttribute("posts", posts);
 
         return "index";

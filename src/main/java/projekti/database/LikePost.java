@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Like extends AbstractPersistable<Long> {
+public class LikePost extends AbstractPersistable<Long> {
     @ManyToOne
     private Post post;
     @ManyToOne

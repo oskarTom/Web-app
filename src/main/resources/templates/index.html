@@ -9,19 +9,25 @@
     <body>
         <div th:replace="fragments/layout :: header"></div>
         <div class="everything">
-            <h1 th:text="${'Hello ' + message}">Hello DEVELOPER</h1>
+            <h1 th:text="${'Hello ' + me.name}">Hello DEVELOPER</h1>
 
             <div class="content">
                 <form method="POST" th:action="@{/}">
                     <input type="text" name="update"/>
-                    <input type="submit" name="submit">
+                    <input type="submit" name="submit"/>
                 </form>
                 <ul>
                     <li th:each="post: ${posts}">
-                        <img th:src="@{/user/{id}/profilepicture(id=${post.poster.url})}" class="small" alt="">
+                        <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="small" alt="">
                         <span th:text="${post.poster.name}">Name</span>
                         <span th:text="${post.time}">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
+                        <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
+                            <input type="submit" name="like" th:text="Like"/>
+                        </form>
+                        <form th:if="${liked.contains(post)}" method="POST" th:action="@{/posts/{id}/unlike(id=${post.id})}">
+                            <input type="submit" name="unlike" th:text="Unlike"/>
+                        </form>
                     </li>
                 </ul>
             </div>

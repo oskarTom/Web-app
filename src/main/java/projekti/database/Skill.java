@@ -15,7 +15,7 @@ import java.util.List;
 public class Skill extends AbstractPersistable<Long> {
     @ManyToOne
     private Account user;
-    private String skill;
-    @OneToMany
+    private String content;
+    @OneToMany(mappedBy = "skill")
     private List<Praise> praises;
 }

@@ -27,9 +27,6 @@ public class DefaultController {
     private ConnectionService connectionService;
 
     @Autowired
-    private AccountRepository accountRepository;
-
-    @Autowired
     private PostRepository postRepository;
 
     @GetMapping("/")
@@ -53,7 +50,7 @@ public class DefaultController {
     @GetMapping("/user/{id}")
     public String getProfile(@PathVariable String id, Model model) {
         Account myaccount = accountService.configureHeader(model);
-        Account theiraccount = accountRepository.findByUrl(id);
+        Account theiraccount = accountService.getByUrl(id);
         if (theiraccount == null) {
             return "index";
         }
@@ -69,9 +66,7 @@ public class DefaultController {
     @PostMapping("/user/{id}/profilepicture")
     public String updateProfile(@PathVariable String id,
                                 @RequestParam("file") MultipartFile file) throws IOException {
-        Account myaccount = accountService.getCurrentUser();
-        myaccount.setProfilePic(file.getBytes());
-        accountRepository.save(myaccount);
+        accountService.setProfilePicture(file);
         return "redirect:/user/" + id;
     }
 

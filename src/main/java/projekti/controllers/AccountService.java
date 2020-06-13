@@ -5,11 +5,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import projekti.database.Account;
 import projekti.database.AccountRepository;
 import projekti.database.Connection;
 import projekti.database.ConnectionRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Service
@@ -34,6 +36,12 @@ public class AccountService {
         }
         model.addAttribute("me", myaccount);
         return myaccount;
+    }
+
+    public void setProfilePicture(MultipartFile file) throws IOException {
+        Account myaccount = getCurrentUser();
+        myaccount.setProfilePic(file.getBytes());
+        accountRepository.save(myaccount);
     }
 
     public void addToContacts(String url){
@@ -64,5 +72,9 @@ public class AccountService {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         return accountRepository.findByUsername(username);
+    }
+
+    public Account getByUrl(String url) {
+        return accountRepository.findByUrl(url);
     }
 }

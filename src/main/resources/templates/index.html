@@ -22,6 +22,7 @@
                         <span th:text="${post.poster.name}">Name</span>
                         <span th:text="${post.time}">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
+                        <span th:text="${post.likes.size()}"></span>
                         <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
                             <input type="submit" name="like" th:text="Like"/>
                         </form>

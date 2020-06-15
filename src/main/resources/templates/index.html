@@ -14,7 +14,7 @@
             <div class="content">
                 <form method="POST" th:action="@{/}">
                     <input type="text" name="update"/>
-                    <input type="submit" name="submit"/>
+                    <input type="submit" value="Post" name="submit"/>
                 </form>
                 <ul>
                     <li th:each="post: ${posts}">
@@ -24,10 +24,14 @@
                         <div th:text="${post.content}" class="postcontent">Content</div>
                         <span th:text="${post.likes.size()}"></span>
                         <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
-                            <input type="submit" name="like" th:text="Like"/>
+                            <input type="submit" name="like" value="Like"/>
                         </form>
                         <form th:if="${liked.contains(post)}" method="POST" th:action="@{/posts/{id}/unlike(id=${post.id})}">
-                            <input type="submit" name="unlike" th:text="Unlike"/>
+                            <input type="submit" name="unlike" value="Unlike"/>
+                        </form>
+                        <form method="POST" th:action="@{/posts/{id}/comment(id=${post.id})}">
+                            <input type="text" name="comment">
+                            <input type="submit" value="Comment" name="submitcomment">
                         </form>
                     </li>
                 </ul>

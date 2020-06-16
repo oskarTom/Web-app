@@ -20,21 +20,20 @@
                     <li th:each="post: ${posts}" class="post">
                         <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="medium" alt="" />
                         <span th:text="${post.poster.name}">Name</span>
-                        <br />
                         <span th:text="${post.time}">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
-                        <span th:text="${post.likes.size()}"></span>
                         <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
+                            <span th:text="${post.likes.size()}"></span>
                             <input type="submit" name="like" value="Like"/>
                         </form>
                         <form th:if="${liked.contains(post)}" method="POST" th:action="@{/posts/{id}/unlike(id=${post.id})}">
+                            <span th:text="${post.likes.size()}"></span>
                             <input type="submit" name="unlike" value="Unlike"/>
                         </form>
                         <ul>
                             <li th:each="comment: ${post.comments}">
                                 <img th:src="@{/user/{url}/profilepicture(url=${comment.poster.url})}" class="small" alt="" />
                                 <span th:text="${comment.poster.name}"></span>
-                                <br />
                                 <span th:text="${comment.time}"></span>
                                 <div th:text="${comment.content}"></div>
                             </li>

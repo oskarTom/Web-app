@@ -79,3 +79,6 @@ img.small {
     font-size: 18px;
     border-radius: 10px;
 }
+ul {
+    list-style-type: none;
+}

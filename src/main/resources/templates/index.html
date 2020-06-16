@@ -17,9 +17,10 @@
                     <input type="submit" value="Post" name="submit"/>
                 </form>
                 <ul>
-                    <li th:each="post: ${posts}">
-                        <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="small" alt="">
+                    <li th:each="post: ${posts}" class="post">
+                        <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="medium" alt="" />
                         <span th:text="${post.poster.name}">Name</span>
+                        <br />
                         <span th:text="${post.time}">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
                         <span th:text="${post.likes.size()}"></span>
@@ -29,6 +30,15 @@
                         <form th:if="${liked.contains(post)}" method="POST" th:action="@{/posts/{id}/unlike(id=${post.id})}">
                             <input type="submit" name="unlike" value="Unlike"/>
                         </form>
+                        <ul>
+                            <li th:each="comment: ${post.comments}">
+                                <img th:src="@{/user/{url}/profilepicture(url=${comment.poster.url})}" class="small" alt="" />
+                                <span th:text="${comment.poster.name}"></span>
+                                <br />
+                                <span th:text="${comment.time}"></span>
+                                <div th:text="${comment.content}"></div>
+                            </li>
+                        </ul>
                         <form method="POST" th:action="@{/posts/{id}/comment(id=${post.id})}">
                             <input type="text" name="comment">
                             <input type="submit" value="Comment" name="submitcomment">

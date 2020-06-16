@@ -57,10 +57,21 @@ img.large {
     font-size: 18px;
     border-radius: 10px;
 }
-img.small {
+img.medium {
     overflow: hidden;
     height: 75px;
     width: 75px;
+    object-fit: cover;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 10px;
+}
+img.small {
+    overflow: hidden;
+    height: 40px;
+    width: 40px;
     object-fit: cover;
     background-color: gray;
     color: white;

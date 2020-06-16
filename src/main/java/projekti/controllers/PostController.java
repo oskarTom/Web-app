@@ -20,6 +20,9 @@ public class PostController {
     private LikeRepository likeRepository;
 
     @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
     private AccountService accountService;
 
     @PostMapping("/")
@@ -45,6 +48,15 @@ public class PostController {
         Post post = postRepository.getOne(id);
         LikePost like = likeRepository.findByPostAndUser(post, user);
         likeRepository.delete(like);
+        return "redirect:/";
+    }
+
+    @PostMapping("/posts/{id}/comment")
+    public String comment(@PathVariable Long id,
+                          @RequestParam String comment) {
+        Account user = accountService.getCurrentUser();
+        Post post = postRepository.getOne(id);
+        commentRepository.save(new Comment(post, user, comment, LocalDateTime.now()));
         return "redirect:/";
     }
 

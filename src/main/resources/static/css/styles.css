@@ -17,22 +17,32 @@ a:hover{
 header {
     width: 100%;
 }
+header * {
+    font-size: 15px;
+    color: white;
+    background: none;
+    border: none;
+    display: inline;
+}
+header *:hover {
+    color: darkgray;
+}
 header.main {
     position: fixed;
     height: 50px;
-    background-color: gray;
+    background-color: #333333;
     z-index: 10;
 }
 header.main nav {
-    position: absolute;
-    font-size: 20px;
-    bottom: 5px;
+    position: relative;
     left: 5px;
+}
+header.main nav * {
+    padding: 10px;
 }
 h1 {
     width: 720px;
     margin: auto;
-    padding: 20px;
 }
 .content {
     width: 720px;
@@ -40,6 +50,7 @@ h1 {
     margin: auto;
     padding: 10px;
     background-color: lightgray;
+    text-align: left;
 }
 .largeProfile {
     height: 210px;
@@ -49,16 +60,15 @@ h1 {
 }
 img.large {
     overflow: hidden;
-    margin: 150px 10px 10px 10px;
     height: 300px;
     width: 300px;
     object-fit: cover;
-    position: absolute;
     background-color: gray;
     color: white;
     text-align: center;
     font-size: 18px;
     border-radius: 150px;
+    margin: auto;
 }
 img.medium {
     overflow: hidden;

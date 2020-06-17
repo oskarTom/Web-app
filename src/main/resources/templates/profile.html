@@ -8,9 +8,9 @@
     </head>
     <body>
         <div th:replace="fragments/layout :: header"></div>
-        <header class="profile">
-            <img th:src="@{/user/{url}/profilepicture(url=${user.url})}" class="large" alt="your profile picture"/>
+        <div class="content">
             <div class="title">
+                <img th:src="@{/user/{url}/profilepicture(url=${user.url})}" class="large" alt="your profile picture"/>
                 <h1 th:text="${user.name}">YOUR PROFILE</h1>
                 <button th:if="${user==me}" th:action="@{/settings}" method="GET">Edit</button>
                 <form th:if="${user!=me}" th:action="@{/user/{url}/add(url=${user.url})}" method="POST">
@@ -19,21 +19,22 @@
                     <p th:if="${added==2}">FRIENDS</p>
                 </form>
             </div>
-        </header>
-
-        <div class="content">
             <form  th:if="${user==me}" method="POST" th:action="@{/user/{url}/skill(url=${user.url})}">
                 <input type="text" name="skill"/>
                 <input type="submit" value="Add skill" name="submit"/>
             </form>
+            <h2>Skills: </h2>
             <ul>
+
                 <li th:each="skill: ${skills}">
                     <span th:text="${skill.content}"></span>
-                    <span th:text="${skill.praises.size()}"></span>
+                    <br />
+                    <span th:text="${skill.praises.size()} +' Praises'"></span>
                     <form th:if="${user!=me && !praised.contains(skill)}" method="POST" th:action="@{/user/{url}/skill/{id}(id=${skill.id}, url=${user.url})}">
                         <input type="submit" name="praise" value="Praise"/>
                     </form>
                 </li>
+
             </ul>
         </div>
 

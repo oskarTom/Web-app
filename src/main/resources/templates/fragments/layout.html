@@ -10,6 +10,7 @@
                 <nav>
                     <a th:href="@{/}" href="../index.html">Main</a>
                     <a th:href="@{/user/{url}(url=${me.url})}" th:text="${me.name}" href="../profile.html">Your Profile</a>
+                    <a th:href="@{/contacts}">Contacts</a>
                     <form th:action="@{/logout}" method="POST">
                         <input type="submit" value="Logout"/>
                     </form>

@@ -6,25 +6,35 @@
         <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
     </head>
     <body>
-        <!--<div th:replace="fragments/layout :: header"></div>-->
-        <h2>Requests</h2>
-        <ul>
-            <li  th:each="person: ${requests}">
-                <form th:action="@{/contacts/{url}/respond(url=${person.url})}" method="POST">
-                    <span th:text="${person.name}"></span>
-                    <input type="submit" name="action" value="Accept">
-                    <input type="submit" name="action" value="Decline">
-                </form>
-            </li>
-        </ul>
-        <h2>Contacts</h2>
-        <ul>
-            <li th:each="person: ${confirmed}">
-                <form th:action="@{/contacts/{url}/delete(url=${person.url})}" method="POST">
-                    <span th:text="${person.name}"></span>
-                    <input type="submit" value="Delete">
-                </form>
-            </li>
-        </ul>
+        <div th:replace="fragments/layout :: header"></div>
+        <div class="everything">
+            <div class="content">
+                <h2 th:if="${requests.size()!=0}">Requests</h2>
+                <ul>
+                    <li  th:each="person: ${requests}">
+                        <form th:action="@{/contacts/{url}/respond(url=${person.url})}" method="POST">
+                            <a th:href="@{/user/{url}(url=${person.url})}">
+                                <img th:src="@{/user/{url}/profilepicture(url=${person.url})}" class="medium" alt="" />
+                                <span th:text="${person.name}"></span>
+                            </a>
+                            <input type="submit" name="action" value="Accept">
+                            <input type="submit" name="action" value="Decline">
+                        </form>
+                    </li>
+                </ul>
+                <h2>Contacts</h2>
+                <ul>
+                    <li th:each="person: ${confirmed}">
+                        <form th:action="@{/contacts/{url}/delete(url=${person.url})}" method="POST">
+                            <a th:href="@{/user/{url}(url=${person.url})}">
+                                <img th:src="@{/user/{url}/profilepicture(url=${person.url})}" class="medium" alt="" />
+                                <span th:text="${person.name}"></span>
+                            </a>
+                            <input type="submit" value="Delete">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </body>
 </html>

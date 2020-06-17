@@ -22,7 +22,15 @@
         </header>
 
         <div class="content">
-            There is nothing here...
+            <form  th:if="${user==me}" method="POST" th:action="@{/user/{url}/skill(url=${user.url})}">
+                <input type="text" name="skill"/>
+                <input type="submit" value="Add skill" name="submit"/>
+            </form>
+            <ul>
+                <li th:each="skill: ${skills}">
+                    <span th:text="${skill.content}"></span>
+                </li>
+            </ul>
         </div>
 
     </body>

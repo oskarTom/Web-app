@@ -17,3 +17,7 @@ header.profile div.title *{
 header.profile div.title button{
     padding: 5px 10px;
 }
+.content {
+    position: relative;
+    top: 50px;
+}

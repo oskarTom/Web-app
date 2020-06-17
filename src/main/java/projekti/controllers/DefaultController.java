@@ -32,6 +32,9 @@ public class DefaultController {
     @Autowired
     private LikeRepository likeRepository;
 
+    @Autowired
+    private SkillRepository skillRepository;
+
     @GetMapping("/")
     public String helloWorld(Model model) {
         Account myaccount = accountService.configureHeader(model);
@@ -65,6 +68,7 @@ public class DefaultController {
         }
         model.addAttribute("user", theiraccount);
         model.addAttribute("added", connectionService.getConnectionStatus(myaccount, theiraccount));
+        model.addAttribute("skills", skillRepository.findByUser(theiraccount));
 
         if (theiraccount.getProfilePic()!=null) {
 

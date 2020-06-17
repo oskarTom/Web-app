@@ -18,8 +18,10 @@
                 </form>
                 <ul>
                     <li th:each="post: ${posts}" class="post">
-                        <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="medium" alt="" />
-                        <span th:text="${post.poster.name}">Name</span>
+                        <a th:href="@{/user/{url}(url=${post.poster.url})}">
+                            <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="medium" alt="" />
+                            <span th:text="${post.poster.name}">Name</span>
+                        </a>
                         <span th:text="${post.time}" class="time">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
                         <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
@@ -32,8 +34,10 @@
                         </form>
                         <ul>
                             <li th:each="comment: ${post.comments}">
-                                <img th:src="@{/user/{url}/profilepicture(url=${comment.poster.url})}" class="small" alt="" />
-                                <span th:text="${comment.poster.name}"></span>
+                                <a th:href="@{/user/{url}(url=${comment.poster.url})}">
+                                    <img th:src="@{/user/{url}/profilepicture(url=${comment.poster.url})}" class="small" alt="" />
+                                    <span th:text="${comment.poster.name}"></span>
+                                </a>
                                 <span th:text="${comment.time}" class="time"></span>
                                 <div th:text="${comment.content}"></div>
                             </li>

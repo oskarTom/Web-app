@@ -35,6 +35,9 @@ public class DefaultController {
     @Autowired
     private SkillRepository skillRepository;
 
+    @Autowired
+    private PraiseRepository praiseRepository;
+
     @GetMapping("/")
     public String helloWorld(Model model) {
         Account myaccount = accountService.configureHeader(model);
@@ -70,9 +73,13 @@ public class DefaultController {
         model.addAttribute("added", connectionService.getConnectionStatus(myaccount, theiraccount));
         model.addAttribute("skills", skillRepository.findByUser(theiraccount));
 
-        if (theiraccount.getProfilePic()!=null) {
-
+        List<Praise> praises = praiseRepository.findByUser(myaccount);
+        List<Skill> praised = new ArrayList<>();
+        for (Praise praise : praises) {
+            praised.add(praise.getSkill());
         }
+        model.addAttribute("praised", praised);
+
         return "profile";
     }
 

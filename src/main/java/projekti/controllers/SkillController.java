@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class SkillController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
 
     @Autowired
     private SkillRepository skillRepository;
@@ -25,10 +25,17 @@ public class SkillController {
     @PostMapping("/user/{url}/skill")
     public String addSkill(@PathVariable String url,
                            @RequestParam String skill) {
-        Account user = accountRepository.findByUrl(url);
+        Account user = accountService.getByUrl(url);
         skillRepository.save(new Skill(user, skill, new ArrayList<>()));
         return "redirect:/user/{url}";
     }
 
-
+    @PostMapping("user/{url}/skill/{id}")
+    public String praise(@PathVariable Long id) {
+        Account user = accountService.getCurrentUser();
+        Skill skill = skillRepository.getOne(id);
+        Praise praise = new Praise(skill, user);
+        praiseRepository.save(praise);
+        return "redirect:/user/{url}";
+    }
 }

@@ -29,6 +29,10 @@
             <ul>
                 <li th:each="skill: ${skills}">
                     <span th:text="${skill.content}"></span>
+                    <span th:text="${skill.praises.size()}"></span>
+                    <form th:if="${user!=me && !praised.contains(skill)}" method="POST" th:action="@{/user/{url}/skill/{id}(id=${skill.id}, url=${user.url})}">
+                        <input type="submit" name="praise" value="Praise"/>
+                    </form>
                 </li>
             </ul>
         </div>

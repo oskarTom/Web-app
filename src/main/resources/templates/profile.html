@@ -23,10 +23,18 @@
                 <input type="text" name="skill"/>
                 <input type="submit" value="Add skill" name="submit"/>
             </form>
-            <h2>Skills: </h2>
+            <h2>Highlighted skills: </h2>
             <ul>
 
                 <li th:each="skill: ${skills}">
+                    <span th:text="${skill.content}"></span>
+                    <br />
+                    <span th:text="${skill.praises.size()} +' Praises'"></span>
+                </li>
+            </ul>
+            <h3>All skills: </h3>
+            <ul>
+                <li th:each="skill: ${allskills}">
                     <span th:text="${skill.content}"></span>
                     <br />
                     <span th:text="${skill.praises.size()} +' Praises'"></span>
@@ -34,7 +42,6 @@
                         <input type="submit" name="praise" value="Praise"/>
                     </form>
                 </li>
-
             </ul>
         </div>
 

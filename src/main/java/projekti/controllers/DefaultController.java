@@ -71,7 +71,10 @@ public class DefaultController {
         }
         model.addAttribute("user", theiraccount);
         model.addAttribute("added", connectionService.getConnectionStatus(myaccount, theiraccount));
-        model.addAttribute("skills", skillRepository.findByUser(theiraccount));
+
+        Pageable pageable = PageRequest.of(0,3, Sort.by("praises").descending());
+        model.addAttribute("skills", skillRepository.findByUser(theiraccount, pageable));
+        model.addAttribute("allskills", skillRepository.findByUser(theiraccount));
 
         List<Praise> praises = praiseRepository.findByUser(myaccount);
         List<Skill> praised = new ArrayList<>();

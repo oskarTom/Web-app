@@ -47,8 +47,8 @@ public class DefaultController {
         posters.add(myaccount);
 
         List<Post> posts = new ArrayList<>();
-        posts.addAll(postRepository.findByPosterIn(posters));
-        Pageable pageable = PageRequest.of(0,25, Sort.by("time").ascending());
+        Pageable pageable = PageRequest.of(0,25, Sort.by("time").descending());
+        posts.addAll(postRepository.findByPosterIn(posters, pageable));
 
         List<Post> liked = new ArrayList<>();
         for (Post post : posts) {

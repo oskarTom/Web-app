@@ -95,3 +95,6 @@ img.small {
 ul {
     list-style-type: none;
 }
+.textfield {
+    background-color: lightgray;
+}

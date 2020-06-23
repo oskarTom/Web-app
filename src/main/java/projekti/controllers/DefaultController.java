@@ -56,6 +56,9 @@ public class DefaultController {
                 liked.add(post);
             }
         }
+
+
+
         model.addAttribute("liked", liked);
         model.addAttribute("posts", posts);
 
@@ -125,17 +128,25 @@ public class DefaultController {
         return "redirect:/contacts";
     }
 
-    @GetMapping("/settings")
-    public String getSettings(Model model) {
-        Account myaccount = accountService.configureHeader(model);
-        model.addAttribute("person", myaccount);
-        return "settings";
-    }
-
     @GetMapping("/contacts")
     public String getContacts(Model model) {
         Account myaccount = accountService.configureHeader(model);
         connectionService.setConfirmedAndRequests(model, myaccount);
         return "contacts";
     }
+
+    @PostMapping("/search")
+    public String search(@RequestParam String text) {
+        return "redirect:/search/"+text;
+    }
+
+    @GetMapping("/search/{search}")
+    public String searchResult(Model model, @PathVariable String search) {
+        Account myaccount = accountService.configureHeader(model);
+        model.addAttribute("person", myaccount);
+        model.addAttribute("results", accountService.getByName(search));
+        return "search";
+    }
+
+
 }

@@ -13,6 +13,7 @@ import projekti.database.ConnectionRepository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class AccountService {
@@ -80,5 +81,9 @@ public class AccountService {
 
     public Account getByUrl(String url) {
         return accountRepository.findByUrl(url);
+    }
+
+    public List<Account> getByName(String name) {
+        return accountRepository.findByName(name);
     }
 }

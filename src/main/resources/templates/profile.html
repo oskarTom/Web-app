@@ -10,9 +10,15 @@
         <div th:replace="fragments/layout :: header"></div>
         <div class="content">
             <div class="title">
+                <div class="center">
                 <img th:src="@{/user/{url}/profilepicture(url=${user.url})}" class="large" alt="your profile picture"/>
                 <h1 th:text="${user.name}">YOUR PROFILE</h1>
-                <button th:if="${user==me}" th:action="@{/settings}" method="GET">Edit</button>
+                </div>
+                <form th:if="${user==me}" th:action="@{/user/{url}/profilepicture(url=${user.url})}" method="POST" enctype="multipart/form-data">
+                    <h4>Set profile picture: </h4>
+                    <input type="file" name="file" />
+                    <input type="submit" value="Set"/>
+                </form>
                 <form th:if="${user!=me}" th:action="@{/user/{url}/add(url=${user.url})}" method="POST">
                     <input th:if="${added==0}" type="submit" value="Add to contacts"/>
                     <p th:if="${added==1}">Contact request pending...</p>
@@ -20,6 +26,7 @@
                 </form>
             </div>
             <form  th:if="${user==me}" method="POST" th:action="@{/user/{url}/skill(url=${user.url})}">
+                <h4>Add a skill:</h4>
                 <input type="text" name="skill"/>
                 <input type="submit" value="Add skill" name="submit"/>
             </form>

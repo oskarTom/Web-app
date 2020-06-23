@@ -20,5 +20,7 @@ header.profile div.title button{
 .content {
     position: relative;
     top: 50px;
+}
+.center {
     text-align: center;
 }

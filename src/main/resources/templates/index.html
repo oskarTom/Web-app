@@ -22,7 +22,8 @@
                             <img th:src="@{/user/{url}/profilepicture(url=${post.poster.url})}" class="medium" alt="" />
                             <span th:text="${post.poster.name}">Name</span>
                         </a>
-                        <span th:text="${post.time}" class="time">Time</span>
+                        <span th:text="${post.time.getDayOfMonth()}+'.'+${post.time.getMonth()}+'.'+${post.time.getYear()}" class="time">Date</span>
+                        <span th:text="' '+${post.time.getHour()}+':'+${post.time.getMinute()}" class="time">Time</span>
                         <div th:text="${post.content}" class="postcontent">Content</div>
                         <form th:if="${!liked.contains(post)}" method="POST" th:action="@{/posts/{id}(id=${post.id})}">
                             <span th:text="${post.likes.size()}"></span>

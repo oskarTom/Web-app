@@ -8,12 +8,16 @@
     <body>
         <div th:replace="fragments/layout :: header"></div>
         <div class="everything" >
-            <h1>Settings</h1>
+            <h1>Search results:</h1>
             <div class="content">
-                <form th:action="@{/user/{url}/profilepicture(url=${person.url})}" method="POST" enctype="multipart/form-data">
-                    <input type="file" name="file" />
-                    <input type="submit" value="Set"/>
-                </form>
+                <ul>
+                    <li th:each="person: ${results}">
+                        <a th:href="@{/user/{url}(url=${person.url})}">
+                            <img th:src="@{/user/{url}/profilepicture(url=${person.url})}" class="medium" alt="" />
+                            <span th:text="${person.name}"></span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </body>

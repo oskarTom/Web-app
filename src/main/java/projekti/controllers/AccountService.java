@@ -84,6 +84,6 @@ public class AccountService {
     }
 
     public List<Account> getByName(String name) {
-        return accountRepository.findByName(name);
+        return accountRepository.findByNameIgnoreCase(name);
     }
 }

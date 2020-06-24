@@ -7,5 +7,5 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Account findByUsername(String username);
     Account findByUrl(String url);
-    List<Account> findByName(String name);
+    List<Account> findByNameIgnoreCase(String name);
 }
